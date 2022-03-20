@@ -122,25 +122,65 @@
 # Необязательно, чтобы для каждого предмета были все типы занятий.
 # Сформировать словарь, содержащий название предмета и общее количество занятий по нему. Вывести его на экран.
 
-f = open(r'text_6.txt', 'r', encoding='utf-8')
-spisok = {}
+# f = open(r'text_6.txt', 'r', encoding='utf-8')
+# spisok = {}
+#
+# list = []
+# for line in f:
+#     chasy = []
+#     line = line.replace('(', ' ')
+#     line = line.replace(')', ' ')
+#     line = line.replace(':', ' ')
+#     line = line.replace('  - ', ' ')
+#     line_i = line.split()
+#     for el in line_i:
+#         try:
+#             i = int(el)
+#             chasy.append(i)
+#         except (TypeError, ValueError, IndentationError):
+#             continue
+#     s = sum(chasy)
+#     spisok[line_i[0]] = s
+#
+# print(spisok)
+# f.close()
 
-list = []
+
+# 7.Необходимо построчно прочитать файл, вычислить прибыль каждой компании, а также среднюю прибыль.
+# Если фирма получила убытки, в расчёт средней прибыли её не включать.
+
+f = open(r'text_7.txt', 'r', encoding='utf-8')
+
+sr_pr = []
+n = 0
+dict_pr = {}
+dict_ub = {}
+dict_sr = {}
+e = []
+
 for line in f:
-    chasy = []
-    line = line.replace('(', ' ')
-    line = line.replace(')', ' ')
-    line = line.replace(':', ' ')
-    line = line.replace('  - ', ' ')
-    line_i = line.split()
-    for el in line_i:
-        try:
-            i = int(el)
-            chasy.append(i)
-        except (TypeError, ValueError, IndentationError):
-            continue
-    s = sum(chasy)
-    spisok[line_i[0]] = s
+    li = line.split()
 
-print(spisok)
-f.close()
+    delta = int(li[2]) - int(li[3])
+    if delta > 0:
+        sr_pr.append(delta)
+        n += 1
+        print('Прибыль составила: ', delta)
+        dict_pr[li[0]] = delta
+    else:
+        print('Убыток составил: ', delta)
+        dict_ub[li[0]] = delta
+
+sr_pr = sum(sr_pr) / n
+print(f'Средняя прибыль компаний с положительной рейнтабельностью составляет: {sr_pr}')
+dict_sr['Средняя прибыль:'] = sr_pr
+
+e = [dict_pr, dict_ub, dict_sr]
+print(e)
+
+import json
+
+with open('text_7_json.txt', 'w', encoding='utf-8') as write_f:
+    json.dump(e, write_f)
+
+f.close
