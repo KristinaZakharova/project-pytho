@@ -143,3 +143,4 @@ for line in f:
     spisok[line_i[0]] = s
 
 print(spisok)
+f.close()
