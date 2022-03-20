@@ -180,6 +180,7 @@ print(e)
 
 import json
 
+
 with open('text_7_json.txt', 'w', encoding='utf-8') as write_f:
     json.dump(e, write_f)
 
